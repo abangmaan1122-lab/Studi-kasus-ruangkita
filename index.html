@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Studi Kasus Sistem Informasi & UI/UX — RuangKita</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- HEADER STUDI KASUS -->
+  <header class="topbar">
+    <div class="container topbar-inner">
+      <div class="brand">
+        <span class="brand-badge">SI</span>
+        <div>
+          <h1>Studi Kasus: RuangKita</h1>
+          <p>Analisis Sistem Informasi, Desain Database & Prototipe UI/UX</p>
+        </div>
+      </div>
+
+      <nav class="tab-nav" id="tab-nav" aria-label="Navigasi Modul Studi Kasus">
+        <button type="button" class="tab-btn active" data-panel="analysis">1. Analisis Sistem</button>
+        <button type="button" class="tab-btn" data-panel="database">2. Database & SQL</button>
+        <button type="button" class="tab-btn" data-panel="prototype">3. Prototipe UI/UX</button>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container main-wrap">
+
+    <!-- ======================================================================
+         PANEL 1: ANALISIS MASALAH, PROSES BISNIS & KEBUTUHAN SISTEM
+         ====================================================================== -->
+    <section id="panel-analysis" class="panel-section">
+      <div class="hero-box">
+        <span class="pill">DOKUMEN PERANCANGAN SISTEM INFORMASI</span>
+        <h2>Digitalisasi Katalog & Reservasi Ruang Kerja / Hunian</h2>
+        <p>
+          Studi kasus ini merancang arsitektur sistem informasi untuk menggantikan pencatatan manual jadwal sewa ruang dengan katalog terstruktur, validasi jadwal anti-bentrok, dan pembatasan hak akses berbasis peran.
+        </p>
+      </div>
+
+      <!-- Perbandingan Alur Sebelum vs Sesudah -->
+      <div class="grid-2">
+        <article class="card">
+          <h3>Kondisi Berjalan (As-Is)</h3>
+          <ul class="bullet-list muted">
+            <li>Pengecekan ketersediaan ruang dilakukan manual melalui pesan teks satu per satu.</li>
+            <li>Pencatatan jadwal sewa tersebar di beberapa catatan sehingga rawan bentrok tanggal.</li>
+            <li>Tidak ada pemisahan hak akses antara staf operasional dan pengelola utama.</li>
+          </ul>
+        </article>
+
+        <article class="card highlight-border">
+          <h3>Sistem Usulan (To-Be)</h3>
+          <ul class="bullet-list">
+            <li>Katalog mandiri dengan filter <strong>Tipe Ruang</strong> dan <strong>Harga Maksimal</strong> secara real-time.</li>
+            <li>Relasi tabel <code>rooms</code> dan <code>bookings</code> menjaga konsistensi status jadwal.</li>
+            <li>Pemisahan akun database <code>ruangkita_operator</code> dan <code>ruangkita_admin</code>.</li>
+          </ul>
+        </article>
+      </div>
+
+      <!-- Tabel Kebutuhan Fungsional & Non-Fungsional -->
+      <div class="card">
+        <div class="card-header">
+          <h3>Spesifikasi Kebutuhan Sistem (Requirements Specification)</h3>
+          <span class="sub-note">Standar Analisis Kebutuhan Perangkat Lunak</span>
+        </div>
+        <div class="table-responsive">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Kode</th>
+                <th>Kategori</th>
+                <th>Deskripsi Kebutuhan</th>
+                <th>Prioritas</th>
+              </tr>
+            </thead>
+            <tbody id="req-table-body"></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- ======================================================================
+         PANEL 2: PERANCANGAN DATABASE RELASIONAL (ERD & SQL)
+         ====================================================================== -->
+    <section id="panel-database" class="panel-section hidden">
+      <div class="card">
+        <div class="card-header">
+          <div>
+            <h3>Kamus Entitas & Relasi Tabel (ERD Blueprint)</h3>
+            <p class="sub-note">Struktur 4 tabel utama yang telah dinormalisasi (3NF) untuk integritas transaksi.</p>
+          </div>
+        </div>
+        <div id="schema-tables-grid" class="grid-2"></div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <div>
+            <h3>Implementasi DDL MySQL & Hak Akses Keamanan (RBAC)</h3>
+            <p class="sub-note">Snippet dari file <code>database_schema.sql</code> beserta konfigurasi <code>GRANT</code> hak akses.</p>
+          </div>
+          <button id="btn-copy-sql" type="button" class="btn btn-outline btn-sm">Salin Kode SQL</button>
+        </div>
+        <pre id="sql-code-block" class="sql-box"></pre>
+      </div>
+    </section>
+
+    <!-- ======================================================================
+         PANEL 3: SIMULASI INTERAKTIF PROTOTIPE UI/UX
+         ====================================================================== -->
+    <section id="panel-prototype" class="panel-section hidden">
+      <div class="proto-banner">
+        <div>
+          <span class="pill">INTERACTIVE WIREFRAME / UI PROTOTYPE</span>
+          <h3>Simulasi Alur Pencarian Ruang, Filter Anggaran & Empty State</h3>
+          <p>Uji coba langsung pengalaman pengguna (UX) dengan mengubah tipe ruang atau menurunkan batas harga maksimal hingga memicu tampilan <em>Empty State</em>.</p>
+        </div>
+      </div>
+
+      <!-- Toolbar Filter Prototipe -->
+      <div class="filter-panel">
+        <div class="control-block">
+          <label for="proto-type-filter">Tipe Ruang</label>
+          <select id="proto-type-filter">
+            <option value="Semua">Semua Tipe Ruang</option>
+            <option value="Private Office">Private Office</option>
+            <option value="Meeting Room">Meeting Room</option>
+            <option value="Co-Working">Co-Working</option>
+            <option value="Studio">Studio</option>
+          </select>
+        </div>
+
+        <div class="control-block grow">
+          <div class="range-header">
+            <label for="proto-max-price">Batas Harga Maksimal / Hari</label>
+            <strong id="proto-price-label">Rp 500.000</strong>
+          </div>
+          <input id="proto-max-price" type="range" min="50000" max="500000" step="25000" value="500000" />
+        </div>
+
+        <button id="btn-reset-filter" type="button" class="btn btn-outline btn-sm">Reset Filter</button>
+      </div>
+
+      <!-- Grid Kartu Ruang Prototipe -->
+      <div id="proto-room-grid" class="room-grid"></div>
+
+      <!-- Tampilan Empty State (UX Handling saat hasil filter 0) -->
+      <div id="proto-empty-state" class="empty-state hidden">
+        <div class="empty-icon">🔍</div>
+        <h4>Tidak Ada Ruang yang Sesuai dengan Filter Anda</h4>
+        <p>
+          Kombinasi tipe ruang dan batas harga maksimal saat ini belum memiliki unit yang tersedia. Coba naikkan batas anggaran atau tampilkan semua tipe ruang.
+        </p>
+        <button id="btn-empty-reset" type="button" class="btn btn-primary btn-sm">
+          Tampilkan Semua Ruang Tersedia
+        </button>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- MODAL SIMULASI RESERVASI RUANG -->
+  <div id="booking-modal" class="modal-backdrop hidden" role="dialog" aria-modal="true">
+    <div class="modal-card">
+      <div class="modal-top">
+        <div>
+          <span class="pill">SIMULASI FORM RESERVASI</span>
+          <h3 id="booking-room-title">Nama Ruang</h3>
+        </div>
+        <button id="btn-close-booking" type="button" class="close-btn">✕</button>
+      </div>
+
+      <form id="booking-form" class="modal-form">
+        <p id="booking-room-price" class="price-info"></p>
+        <div class="form-row">
+          <label for="booking-date">Tanggal Mulai Sewa</label>
+          <input id="booking-date" type="date" required />
+        </div>
+        <div class="form-row">
+          <label for="booking-days">Durasi (Hari)</label>
+          <input id="booking-days" type="number" min="1" max="30" value="1" required />
+        </div>
+        <div class="total-preview">
+          <span>Estimasi Total Tagihan:</span>
+          <strong id="booking-total-preview">Rp 0</strong>
+        </div>
+        <button type="submit" class="btn btn-primary btn-block">Simulasikan Pengajuan Sewa</button>
+      </form>
+    </div>
+  </div>
+
+  <div id="toast" class="toast hidden"></div>
+
+  <script src="case-data.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
